@@ -36,7 +36,6 @@ public class FollowPlayer : MonoBehaviour
             if (timer <= 0)
             {
                 timer = timerMax;
-
             }
         }
         

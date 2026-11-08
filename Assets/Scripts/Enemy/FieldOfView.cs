@@ -1,16 +1,17 @@
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
-
     // Go back to Code Monkey Field of View Effect in Unity around 13:00
-
     private Mesh mesh;
     private float fov = 90f;
     private Vector3 origin;
     private float startingAngle;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private float viewDistance;
+    
+	[SerializeField] private LayerMask obstacleMask;
+
+	// Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         mesh = new Mesh();
@@ -20,9 +21,9 @@ public class FieldOfView : MonoBehaviour
 
     private void Update() { 
         int rayCount = 50;
-        float angle = 0f;
+        float angle = startingAngle;
         float angleIncrease = fov / rayCount;
-        float viewDistance = 25f; // Change size of enemy fov
+        viewDistance = 15f; // Change size of enemy fov
 
         Vector3[] vertices = new Vector3[rayCount + 1 + 1];
         Vector2[] uv = new Vector2[vertices.Length];
@@ -35,12 +36,13 @@ public class FieldOfView : MonoBehaviour
         for (int i = 0; i <= rayCount; i++)
         {
             Vector3 vertex;
-            RaycastHit2D raycastHit2D = Physics2D.Raycast(origin, GetVectorFromAngle(angle), viewDistance);
+			RaycastHit2D raycastHit2D = Physics2D.Raycast(origin, GetVectorFromAngle(angle), viewDistance, obstacleMask);
             if (raycastHit2D.collider == null)
             {
                 // No hit
                 vertex = origin + GetVectorFromAngle(angle) * viewDistance;
-            } else
+            } 
+            else
             {
                 // Hit object
                 vertex = raycastHit2D.point;
@@ -59,11 +61,10 @@ public class FieldOfView : MonoBehaviour
             vertexIndex++;
             angle -= angleIncrease;
         }
-
+        
         mesh.vertices = vertices;
         mesh.uv = uv;
-        mesh.triangles = triangles;
-
+        mesh.triangles = triangles;        
     }
 
     public static Vector3 GetVectorFromAngle(float angle)
@@ -73,7 +74,7 @@ public class FieldOfView : MonoBehaviour
         return new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad));
     }
 
-    public static float GetAngleFromVectorFloat(Vector3 dir)
+    public float GetAngleFromVectorFloat(Vector3 dir)
     {
         dir = dir.normalized;
         float n = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
@@ -89,6 +90,17 @@ public class FieldOfView : MonoBehaviour
 
     public void SetAimDirection(Vector3 aimDirection)
     {
-        startingAngle = GetAngleFromVectorFloat(aimDirection) - fov / 2f;
+        startingAngle = GetAngleFromVectorFloat(aimDirection) + fov / 2f;
     }
+
+    public float GetViewDistance()
+    {
+        return viewDistance;
+    }
+
+    public float GetFOV()
+    {
+        return fov;
+    }
+
 }
