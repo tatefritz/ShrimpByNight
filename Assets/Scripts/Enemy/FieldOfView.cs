@@ -66,6 +66,7 @@ public class FieldOfView : MonoBehaviour
         mesh.vertices = vertices;
         mesh.uv = uv;
         mesh.triangles = triangles;
+        mesh.RecalculateBounds(); // Makes sure the mesh's transform values are correct
     }
 
     public static Vector3 GetVectorFromAngle(float angle)

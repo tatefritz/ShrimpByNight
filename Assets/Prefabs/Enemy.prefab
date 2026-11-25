@@ -30,8 +30,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7074859350184795885}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.2, y: 13.2, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -172,6 +172,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7995d1f404db4fb45a1dc244d531a01c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DetectionScript
+  playerColLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &3926414160769683195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyFOV
   pfFieldOfView: {fileID: 5216917974093170950, guid: 7f6bdc7f5c0e26844b18dc36756aa21d, type: 3}
+  moveSpeed: 10
 --- !u!114 &173260389687775147
 MonoBehaviour:
   m_ObjectHideFlags: 0
