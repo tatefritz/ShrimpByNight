@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
             if (idleCounter < 0)
             {
                 idleCounter = 5f;
-                aimDir = (new Vector3(Random.Range(-360,361), Random.Range(-360,361), 0) - transform.position).normalized; // When enemy cone is too far to the left things break
+                aimDir = (new Vector3(Random.Range(-360,361), Random.Range(-360,361), 0) - transform.position).normalized;
                 fieldOfView.SetAimDirection(aimDir);
                 if (Random.Range(1,5) == 1)
                 {
